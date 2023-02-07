@@ -14,7 +14,8 @@ metadata:
     helm.sh/release-name: {{ .Release.Name }}
     helm.sh/release-namespace: {{ .Release.Namespace }}
 spec:
-  clusterIP: None
+  type: LoadBalancer
+  #clusterIP: None
   ports:
     - name: http-query
       port: 16686

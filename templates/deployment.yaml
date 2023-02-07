@@ -3,7 +3,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: otel-collector
+  name: opentelemetry-collector
   labels:
     helm.sh/chart: opentelemetry-collector-0.40.7
     app.kubernetes.io/name: otelcol
@@ -21,6 +21,9 @@ spec:
       component: standalone-collector
   strategy:
     type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
   template:
     metadata:
       annotations:
@@ -35,7 +38,7 @@ spec:
         
     spec:
       
-      serviceAccountName: otel-collector
+      serviceAccountName: open-telemetry
       securityContext:
         {}
       containers:
@@ -96,7 +99,7 @@ spec:
       volumes:
         - name: opentelemetry-collector-configmap
           configMap:
-            name: otel-collector
+            name: opentelemetry-collector
             items:
               - key: relay
                 path: relay.yaml
